@@ -17,11 +17,6 @@ app.get('/byebye', function (req, res) {
     res.send('this is the bybye response')
 })
 
-// LAST LINE OF CODE- START SERVER - ON PORT 8000
-app.listen(8000, function () {
-    console.log('Server listening to port 8000, go to http://localhost:8000')
-})
-
 /* POST form processing **********************************************************/
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded())
@@ -47,3 +42,8 @@ app.post('/form_validate',
         }
     }
 )
+
+// LAST LINE OF CODE- START SERVER - ON PORT 8000
+app.listen(8000, function () {
+    console.log('Server listening to port 8000, go to http://localhost:8000')
+})
