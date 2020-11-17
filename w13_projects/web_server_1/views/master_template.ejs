@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <meta name="description" content="<%=description%>">
+    <meta name="author" content="<%=author%>">
+    <!-- styles -->
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>This is the header - same for all pages</header>
+    <!-- navigation -->
+    <div class="topnav">
+        <a class="active" href="http://localhost:8000/">Home Page</a>
+        <a href="chair_response.html">Chair</a>
+        <a href="http://localhost:8000/products">products</a>
+        <a href="http://localhost:8000/seasons">seasons</a>
+        <a href="http://localhost:8000/customers_list">customer list</a>
+        <a href="http://localhost:8000/customers_search_form">customer search</a>
+        <a href="http://localhost:8000/byebye">Bye</a>
+    </div>
+    <p>Below is dynamic content - different from page to page</p>
+    <div class="content"><%- content %></div>
+    <footer>This is the footer - same for all pages</footer>
+</body>
+
+</html>
