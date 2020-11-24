@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en-CA">
+
+<head>
+
+    <title>AJAX test web page</title>
+
+</head>
+
+<body>
+
+    AJAX test web page<br>
+    <button onclick="getOfficesFetch()">Get all offices via GET fetch</button><br>
+
+    <br>
+
+    Status: <b><span id="status">Click a button above</span></b><br>
+
+    Server response: <div id="response"> None</div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+    /* FETCH *************************************************************************************/
+
+    function getOfficesFetch() {
+        fetch("http://localhost:8000/offices",
+            {
+                method: 'GET',
+            }
+        )
+            .then(res => res.json())//here server sends JSON response
+            .then(
+                (response) => {
+                    // TO DO how to handle code other than 200 because this gets
+                    // exeucted in all cases
+                    let offices = response.offices;
+                    document.getElementById("status").innerHTML = "Number of offices:" + offices.length
+                    console.log(offices)
+                    let html = ''
+                    html += '<table>'
+                    for (let i = 0; i < offices.length; i++) {
+                        html += '<tr><td>' + offices[i].officecode + '</td><td>' + offices[i].city + '</td><td>' + offices[i].addressline1 + '</td></tr>'
+
+                    }
+                    html += '</table>'
+                    document.getElementById("response").innerHTML = html;
+
+                },
+                (error) => {
+                    // only NO RESPONSE URL errors will trigger this code
+                    document.getElementById("status").innerHTML = "AJAX error: URL wrong or unreachable, see console"
+                }
+            )
+
+    }// end of office function
+
+    /* JQUERY ************************************************************************************/
+
+    // handles all JQuery AJAX errors, any response code other than 2xx
+
+    $(document).ajaxError(function (event, xhr, options, exc) {
+
+        $("#status").html("An AJAX error occurred: " + xhr.status + " " + xhr.text_status);
+
+    });
+
+    $("#some_button").click(
+
+        function () {
+
+            // using the Jquery $.get function for AJAX call
+
+            $.get(
+
+                // web server URL to call
+
+                "/offices",
+
+                // callback function to execute after server response is received
+
+                function (returned_data, text_status, xhr) {
+
+                    // here only ok response code 2xx will trigger this code
+
+                    // data object received from server
+
+                    console.log(returned_data)
+
+                    let offices = returned_data.offices
+
+                    console.log(offices)
+
+                    $("#status").html("Number of offices: " + offices.length)
+
+                }
+
+            );
+
+        }
+
+    );
+</script>
+
+</html>
